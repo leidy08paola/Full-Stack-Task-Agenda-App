@@ -1,0 +1,114 @@
+http://localhost/phpmyadmin/  --- para la base de datos
+
+
+// INICIO DEL PROYECTO PASOS 
+
+1.. ENCARPETADO 
+
+mi-agenda-app/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/  # Lógica de las rutas
+│   │   ├── models/       # Modelos de la Base de Datos (Usuario, Tarea)
+│   │   ├── middlewares/  # Protección de rutas (verificar token y roles)
+│   │   ├── routes/       # Rutas de la API (/api/auth, /api/tasks)
+│   │   └── app.js        # Configuración de Express
+│   ├── .env              # Variables de entorno (JWT_SECRET, DB_URI)
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/   # Componentes reutilizables (Botones, Inputs)
+│   │   ├── context/      # Estado global (Para saber qué usuario está logueado)
+│   │   ├── pages/        # Vistas (Login, Dashboard, AdminPanel)
+│   │   └── services/     # Peticiones con Axios o Fetch al backend
+│   ├── package.json
+│   └── tailwind.config.js
+
+
+2 .. PRENDER EN XAMMP
+
+http://localhost/phpmyadmin/  --- para la base de datos
+ 
+3..INICIALIZAR EL el Backend
+
+# a. Crear la carpeta para el servidor e ingresar a ella
+mkdir backend
+cd backend
+
+# b. Inicializar el proyecto de Node.js (creará el package.json)
+npm init -y
+
+# b. Instalar Express, el conector de MySQL y las herramientas necesarias
+npm install express mysql2 dotenv cors
+
+# c. Instalar nodemon como dependencia de desarrollo (para que el servidor se reinicie solo al guardar)
+npm install -D nodemon
+
+4... Configurar las Variables de Entorno (.env)
+5.. Crear las tablas en phpMyAdmin
+
+6.. nstalar la herramienta para proteger contraseñas
+
+npm install bcryptjs 
+
+Luego de instalarlo, puedes volver a encender el servidor con npm run dev.
+
+
+
+
+Para que podamos hacer el CRUD de las tareas con seguridad, primero el usuario debe poder iniciar sesión 
+(Login). Así Node.js sabrá qué tareas le pertenecen a cada quien.
+
+Instalar jsonwebtoken (Para el token de sesión)
+
+//Paso 1: Instalar jsonwebtoken (Para el token de sesión)
+--instala la librería que creará los tokens seguros
+
+
+
+--------------------------------------------------------------
+
+Prueba del Login en Thunder Client POST
+
+http://localhost:5000/api/auth/login
+--> BODY
+{
+  "email": "mateo@correo.com",
+  "password": "123456"
+}
+
+---------------------------------------------------------------
+
+¿Cómo lo probamos en Thunder Client ahora que pide Token?
+
+Ve a la pestaña del Login en Thunder Client, copia todo ese texto largo que salió en token (sin las comillas).
+
+Abre un New Request en Thunder Client.
+
+Configúralo en método POST con la URL: http://localhost:5000/api/tareas
+
+Ve a la pestaña Auth (que está al lado de Headers y Body).
+
+Selecciona la opción Bearer Token y pega ahí el token larguísimo que copiaste.
+
+Ahora ve a la pestaña Body -> JSON y escribe los datos de tu primera tarea:
+
+JSON
+{
+  "titulo": "Terminar el backend de ADSO",
+  "descripcion": "Crear los endpoints del CRUD de tareas y probarlos",
+  "fecha_vencimiento": "2026-06-30"
+}
+
+---------------------------------------------------------------------
+
+provar en thonder : GET
+
+http://localhost:5000/api/tareas
+
+
+buscador : GET
+
+http://localhost:5000/api/tareas/buscar?q=backend
+

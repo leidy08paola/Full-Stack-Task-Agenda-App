@@ -1,0 +1,8 @@
+se agreca la carpeta frontend y dentro de ella se crea el archivo notasF.txt
+
+installacion :
+
+npm install axios react-router-dom
+
+
+--------------------------------------------------------------------------------------------
